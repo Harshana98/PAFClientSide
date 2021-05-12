@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Item handling</title>
+<title>Review handling</title>
 
 
 <link rel = "stylesheet" href = "Views/bootstrap.min.css">
@@ -24,16 +24,16 @@
 	<div class="row">
 		<div class="col">
 
-		<h1>Items Management</h1>
+		<h1>Reviews Management</h1>
 		
 	<form id="formItem" name="formItem"  >
-		Item code:
+		Project ID:
 		<input id="itemCode" name="itemCode" type="text" class="form-control form-control-sm"><br>
-		 Item name:
+		 Admin ID:
 		<input id="itemName" name="itemName" type="text" class="form-control form-control-sm"><br> 
-		Item price:
+		Review:
 		<input id="itemPrice" name="itemPrice" type="text" class="form-control form-control-sm"><br>
-		 Item description:
+		 Acceptance:
 		<input id="itemDesc" name="itemDesc" type="text" class="form-control form-control-sm"><br>
 		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary">
 		<input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">

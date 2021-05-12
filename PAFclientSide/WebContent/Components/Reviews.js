@@ -29,7 +29,7 @@ $(document).on("click", "#btnSave", function(event)
 	var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT";
 	$.ajax(
 	{
-	url : "ItemsAPI",
+	url : "ReviewsAPI",
 	type : type,
 	data : $("#formItem").serialize(),
 	dataType : "text",
@@ -72,11 +72,11 @@ function onItemSaveComplete(response, status)
 
 $(document).on("click", ".btnUpdate", function(event)
 {
-	$("#hidItemIDSave").val($(this).data("itemid"));
-	$("#itemCode").val($(this).closest("tr").find('td:eq(0)').text());
-	$("#itemName").val($(this).closest("tr").find('td:eq(1)').text());
-	$("#itemPrice").val($(this).closest("tr").find('td:eq(2)').text());
-	$("#itemDesc").val($(this).closest("tr").find('td:eq(3)').text());
+	$("#id").val($(this).data("review_id"));
+	$("#project_id").val($(this).closest("tr").find('td:eq(0)').text());
+	$("#admin_id").val($(this).closest("tr").find('td:eq(1)').text());
+	$("#review").val($(this).closest("tr").find('td:eq(2)').text());
+	$("#acceptance").val($(this).closest("tr").find('td:eq(3)').text());
 })
 
 
@@ -84,9 +84,9 @@ $(document).on("click", ".btnRemove", function(event)
 {
 	$.ajax(
 	{
-	url : "ItemsAPI",
+	url : "ReviewsAPI",
 	type : "DELETE",
-	data : "itemID=" + $(this).data("itemid"),
+	data : "ID=" + $(this).data("ID"),
 	dataType : "text",
 	complete : function(response, status)
 	{
@@ -132,37 +132,31 @@ function onItemDeleteComplete(response, status)
 // CLIENT-MODEL================================================================
 function validateItemForm()
 {
-// CODE
-	if ($("#itemCode").val().trim() == "")
+	// PROJECT ID
+	var tmpPrjId = $("#project_id").val().trim();
+	if (!$.isNumeric(tmpPrjId))
 	{
-	return "Insert Item Code.";
+	return "Insert a numerical value for project ID.";
 	}
-	// NAME
-	if ($("#itemName").val().trim() == "")
+
+	// ADMIN ID
+	var tmpAdminId = $("#admin_id").val().trim();
+	if (!$.isNumeric(tmpAdminId))
 	{
-	return "Insert Item Name.";
-}
-
-// PRICE-------------------------------
-if ($("#itemPrice").val().trim() == "")
-{
-return "Insert Item Price.";
-}
-
-// is numerical value
-var tmpPrice = $("#itemPrice").val().trim();
-if (!$.isNumeric(tmpPrice))
-{
-return "Insert a numerical value for Item Price.";
-}
-
-// convert to decimal price
-$("#itemPrice").val(parseFloat(tmpPrice).toFixed(2));
-
-// DESCRIPTION------------------------
-if ($("#itemDesc").val().trim() == "")
-{
-return "Insert Item Description.";
-}
-return true;
+	return "Insert a numerical value for admin ID.";
+	}
+	
+	// REVIEW
+	if ($("#review").val().trim() == "")
+	{
+	return "Insert project review.";
+	}
+	
+	// ACCEPTANCE
+	if ($("#acceptance").val().trim() == "")
+	{
+	return "Insert project acceptance.";
+	}
+	
+	return true;
 }
