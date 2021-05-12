@@ -2,7 +2,7 @@ package com;
 
 import java.sql.*;
 
-public class Review
+public class Product
 { //A common method to connect to the DB
 	
 	private Connection connect()
@@ -26,34 +26,31 @@ public class Review
 	}
 	
 	
-public String insertReview( String project_id, String admin_id, String review, String acceptance)
+public String insertProduct(String review_id)
 {
 	String output = "";
 	try
 	{
-		Connection con = connect(); 
+		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for inserting."; } 
 		 
 		 
 		 // create a prepared statement
-		 String query = " insert into review (`review_id`, `project_id`, `admin_id`, `review`,`acceptance`)"+ " values (?, ?, ?, ?, ?)"; 
+		 String query = " insert into products (`product_id`,`review_id`)"+ " values (?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
 		 // binding values 
 		 preparedStmt.setInt(1, 0); 
-		 preparedStmt.setInt(2, Integer.parseInt(project_id));
-		 preparedStmt.setInt(3, Integer.parseInt(admin_id));
-		 preparedStmt.setString(4, review);
-		 preparedStmt.setString(5, acceptance);
+		 preparedStmt.setInt(2, Integer.parseInt(review_id));
 		// execute the statement
 
 		preparedStmt.execute();
 		
 		con.close();
 		
-		String newItems = readReviews();
+		String newItems = readProducts();
 		output = "{\"status\":\"success\", \"data\": \"" +
 		        newItems + "\"}";
 		
@@ -68,7 +65,7 @@ public String insertReview( String project_id, String admin_id, String review, S
 }
 
 
-public String readReviews()
+public String readProducts()
 {
 		String output = "";
 		try
@@ -79,13 +76,9 @@ public String readReviews()
 			 
 			 
 			 // Prepare the html table to be displayed
-			 output = "<table border='1'><tr><th>Project id</th>" +
-			 "<th>Admin id</th>"+
-			 "<th>Review</th>"+
-			 "<th>Acceptance</th>"+
-			 "<th>Update</th><th>Remove</th></tr>"; 
+			 output = "<table border='1'><tr><th>Review id</th><th>Update</th><th>Remove</th></tr>"; 
 			 
-			 String query = "select * from review"; 
+			 String query = "select * from products"; 
 			 Statement stmt = con.createStatement(); 
 			 ResultSet rs = stmt.executeQuery(query); 
 			 
@@ -93,24 +86,18 @@ public String readReviews()
 			 // iterate through the rows in the result set
 			 while (rs.next()) 
 			 { 
-			 String review_id = Integer.toString(rs.getInt("review_id"));
-			 String projectID = Integer.toString(rs.getInt("project_id"));
-			 String admin_id = Integer.toString(rs.getInt("admin_id"));
-			 String review = rs.getString("review");
-			 String acceptance = rs.getString("acceptance");
+			 String product_id = Integer.toString(rs.getInt("product_id")); 
+			 String review_id = rs.getString("review_id"); 
 			 
 			 
-			 // Add into the html table
-			 output += "<tr><td>"+ projectID + "</td>";
-			 output += "<td>" + admin_id + "</td>";
-			 output += "<td>" + review + "</td>";
-			 output += "<td>" + acceptance + "</td>";
+			 // Add into the html table 
+			 output += "<td>" + review_id + "</td>";
 			 
 			 //buttons
 	            
-			 output += "<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary' data-itemid='" + review_id + "'></td>"
+			 output += "<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary' data-itemid='" + product_id + "'></td>"
 	            		+ "<td><input name = 'btnRemove' type='button' value = 'Remove' "
-	            		+ "class = 'btnRemove btn btn-danger' data-itemid='" + review_id + "'>"
+	            		+ "class = 'btnRemove btn btn-danger' data-itemid='" + product_id + "'>"
 	            		+"</td></tr>";
             		
 		}
@@ -131,7 +118,7 @@ public String readReviews()
 	}
 
 
-	public String updateReviews(String id, String project_id, String admin_id, String review, String acceptance)
+	public String updateProducts(String id, String review_id)
 	{
 			String output = "";
 			try
@@ -142,22 +129,19 @@ public String readReviews()
 				 
 				 
 				 // create a prepared statement
-				 String query = "UPDATE review SET project_id=?, admin_id=?, review=?,acceptance=? WHERE review_id=?"; 
+				 String query = "UPDATE products SET review_id=? WHERE product_id=?"; 
 				 PreparedStatement preparedStmt = con.prepareStatement(query); 
 				 
 				 
-				 // binding values 
-				 preparedStmt.setInt(1, Integer.parseInt(project_id));
-				 preparedStmt.setInt(2, Integer.parseInt(admin_id));
-				 preparedStmt.setString(3, review); 
-				 preparedStmt.setString(4, acceptance); 
-				 preparedStmt.setInt(5, Integer.parseInt(id));
+				 // binding values
+				 preparedStmt.setInt(1, Integer.parseInt(review_id)); 
+				 preparedStmt.setInt(2, Integer.parseInt(id));
 					// execute the statement
 					preparedStmt.execute();
 					
 					con.close();
 					
-					String newItems = readReviews();
+					String newItems = readProducts();
 					output = "{\"status\":\"success\", \"data\": \"" +
 					newItems + "\"}";
 			}
@@ -170,7 +154,7 @@ public String readReviews()
 	}
 	
 	
-public String deleteItem(String review_id)
+public String deleteProduct(String product_id)
 {
 	String output = "";
 	try
@@ -181,18 +165,18 @@ public String deleteItem(String review_id)
 		 
 		 
 		 // create a prepared statement
-		 String query = "delete from review where review_id=?"; 
+		 String query = "delete from products where product_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
 		 // binding values
-		 preparedStmt.setInt(1, Integer.parseInt(review_id)); 
+		 preparedStmt.setInt(1, Integer.parseInt(product_id)); 
 			// execute the statement
 			preparedStmt.execute();
 			
 			con.close();
 			
-			String newItems = readReviews();
+			String newItems = readProducts();
 			output = "{\"status\":\"success\", \"data\": \"" +
 			newItems + "\"}";
 	}

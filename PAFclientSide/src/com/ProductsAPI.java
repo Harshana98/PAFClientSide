@@ -16,13 +16,13 @@ import java.util.Scanner;
 /**
  * Servlet implementation class ItemsAPI
  */
-@WebServlet("/ReviewsAPI")
-public class ReviewsAPI extends HttpServlet {
+@WebServlet("/ProductsAPI")
+public class ProductsAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  Review itemObj = new Review();
+  Product itemObj = new Product();
   
-    public ReviewsAPI() {
+    public ProductsAPI() {
         super();
 
     }
@@ -34,11 +34,8 @@ public class ReviewsAPI extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String output = itemObj.insertReview(
-				request.getParameter("project_id"),
-				request.getParameter("admin_id"),
-				request.getParameter("review"),
-				request.getParameter("acceptance"));
+		String output = itemObj.insertProduct(
+				request.getParameter("review_id"));
 				response.getWriter().write(output);
 	}
 
@@ -74,12 +71,9 @@ public class ReviewsAPI extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request);
 		
-		String output = itemObj.updateReviews(
-				paras.get("reveiw_id").toString(),
-				paras.get("project_id").toString(),
-				paras.get("admin_id").toString(),
-				paras.get("review").toString(),
-				paras.get("acceptance").toString());
+		String output = itemObj.updateProducts(
+				paras.get("product_id").toString(),
+				paras.get("review_id").toString());
 
 		response.getWriter().write(output);
 	}
@@ -90,7 +84,7 @@ public class ReviewsAPI extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request);
 		
-		String output = itemObj.deleteItem(paras.get("review_id").toString());
+		String output = itemObj.deleteProduct(paras.get("product_id").toString());
 		
 		response.getWriter().write(output);
 	}
