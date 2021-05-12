@@ -73,7 +73,7 @@ function onItemSaveComplete(response, status)
 $(document).on("click", ".btnUpdate", function(event)
 {
 	$("#product_id").val($(this).data("itemid"));
-	$("#review_id").val($(this).closest("tr").find('td:eq(0)').text());
+	$("#review_id").val($(this).closest("tr").find('td:eq(1)').text());
 })
 
 

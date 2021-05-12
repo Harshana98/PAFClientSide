@@ -28,10 +28,10 @@
 		<h1>Products Management</h1>
 		
 	<form id="formItem" name="formItem"  >
+		<input type="hidden" id="product_id" name="product_id" value="">
 		 Review ID:
 		<input id="review_id" name="review_id" type="text" class="form-control form-control-sm"><br>
 		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary">
-		<input type="hidden" id="product_id" name="product_id" value="">
 	</form>
     
     <div id="alertSuccess" class="alert alert-success"></div>
