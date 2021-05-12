@@ -17,12 +17,12 @@ import java.util.Scanner;
  * Servlet implementation class ItemsAPI
  */
 @WebServlet("/ItemsAPI")
-public class ItemsAPI extends HttpServlet {
+public class ReviewsAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  Item itemObj = new Item();
+  Review itemObj = new Review();
   
-    public ItemsAPI() {
+    public ReviewsAPI() {
         super();
 
     }
@@ -34,10 +34,11 @@ public class ItemsAPI extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String output = itemObj.insertItem(request.getParameter("itemCode"),
-				request.getParameter("itemName"),
-				request.getParameter("itemPrice"),
-				request.getParameter("itemDesc"));
+		String output = itemObj.insertReview(
+				request.getParameter("project_id"),
+				request.getParameter("admin_id"),
+				request.getParameter("review"),
+				request.getParameter("acceptance"));
 				response.getWriter().write(output);
 	}
 
@@ -73,11 +74,12 @@ public class ItemsAPI extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request);
 		
-		String output = itemObj.updateItem(paras.get("hidItemIDSave").toString(),
-		paras.get("itemCode").toString(),
-		paras.get("itemName").toString(),
-		paras.get("itemPrice").toString(),
-		paras.get("itemDesc").toString());
+		String output = itemObj.updateReviews(
+				paras.get("id").toString(),
+				paras.get("project_id").toString(),
+				paras.get("admin_id").toString(),
+				paras.get("review").toString(),
+				paras.get("acceptance").toString());
 
 		response.getWriter().write(output);
 	}
@@ -88,7 +90,7 @@ public class ItemsAPI extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request);
 		
-		String output = itemObj.deleteItem(paras.get("itemID").toString());
+		String output = itemObj.deleteItem(paras.get("ID").toString());
 		
 		response.getWriter().write(output);
 	}

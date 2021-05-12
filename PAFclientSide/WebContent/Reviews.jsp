@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-     <%@page import = "com.Item" %>
+     <%@page import = "com.Review" %>
       
      
 <!DOCTYPE html>
@@ -45,8 +45,8 @@
     <br>
 	<div id="divItemsGrid">
 	<%
-	Item itemObj = new Item();
-	out.print(itemObj.readItems());
+	Review itemObj = new Review();
+		out.print(itemObj.readReviews());
 	%>
 	</div>
 
