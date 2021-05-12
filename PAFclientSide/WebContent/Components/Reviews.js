@@ -26,7 +26,7 @@ $(document).on("click", "#btnSave", function(event)
 	}
 	
 	// If valid------------------------
-	var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT";
+	var type = ($("#review_id").val() == "") ? "POST" : "PUT";
 	$.ajax(
 	{
 	url : "ReviewsAPI",
@@ -65,14 +65,14 @@ function onItemSaveComplete(response, status)
 	$("#alertError").text("Unknown error while saving..");
 	$("#alertError").show();
 	}
-	$("#hidItemIDSave").val("");
+	$("#review_id").val("");
 	$("#formItem")[0].reset();
 }
 
 
 $(document).on("click", ".btnUpdate", function(event)
 {
-	$("#id").val($(this).data("review_id"));
+	$("#review_id").val($(this).data("itemid"));
 	$("#project_id").val($(this).closest("tr").find('td:eq(0)').text());
 	$("#admin_id").val($(this).closest("tr").find('td:eq(1)').text());
 	$("#review").val($(this).closest("tr").find('td:eq(2)').text());
@@ -86,7 +86,7 @@ $(document).on("click", ".btnRemove", function(event)
 	{
 	url : "ReviewsAPI",
 	type : "DELETE",
-	data : "ID=" + $(this).data("ID"),
+	data : "review_id=" + $(this).data("itemid"),
 	dataType : "text",
 	complete : function(response, status)
 	{

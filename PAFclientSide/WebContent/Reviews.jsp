@@ -13,7 +13,7 @@
 
 <link rel = "stylesheet" href = "Views/bootstrap.min.css">
 <script src = "Components/jquery-3.6.0.min.js"></script>
-<script src = "Components/items.js"></script>
+<script src = "Components/Reviews.js"></script>
 
 
 
@@ -28,15 +28,15 @@
 		
 	<form id="formItem" name="formItem"  >
 		Project ID:
-		<input id="itemCode" name="itemCode" type="text" class="form-control form-control-sm"><br>
+		<input id="project_id" name="project_id" type="text" class="form-control form-control-sm"><br>
 		 Admin ID:
-		<input id="itemName" name="itemName" type="text" class="form-control form-control-sm"><br> 
+		<input id="admin_id" name="admin_id" type="text" class="form-control form-control-sm"><br> 
 		Review:
-		<input id="itemPrice" name="itemPrice" type="text" class="form-control form-control-sm"><br>
+		<input id="review" name="review" type="text" class="form-control form-control-sm"><br>
 		 Acceptance:
-		<input id="itemDesc" name="itemDesc" type="text" class="form-control form-control-sm"><br>
+		<input id="acceptance" name="acceptance" type="text" class="form-control form-control-sm"><br>
 		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary">
-		<input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
+		<input type="hidden" id="review_id" name="review_id" value="">
 	</form>
     
     <div id="alertSuccess" class="alert alert-success"></div>

@@ -82,7 +82,8 @@ public String readReviews()
 			 output = "<table border='1'><tr><th>Project id</th>" +
 			 "<th>Admin id</th>"+
 			 "<th>Review</th>"+
-			 "<th>Acceptance</th></tr>"; 
+			 "<th>Acceptance</th>"+
+			 "<th>Update</th><th>Remove</th></tr>"; 
 			 
 			 String query = "select * from review"; 
 			 Statement stmt = con.createStatement(); 
@@ -92,6 +93,7 @@ public String readReviews()
 			 // iterate through the rows in the result set
 			 while (rs.next()) 
 			 { 
+			 String review_id = Integer.toString(rs.getInt("review_id"));
 			 String projectID = Integer.toString(rs.getInt("project_id"));
 			 String admin_id = Integer.toString(rs.getInt("admin_id"));
 			 String review = rs.getString("review");
@@ -99,10 +101,17 @@ public String readReviews()
 			 
 			 
 			 // Add into the html table
-			 output += "<tr><td>" + projectID + "</td>";
+			 output += "<tr><td>"+ projectID + "</td>";
 			 output += "<td>" + admin_id + "</td>";
 			 output += "<td>" + review + "</td>";
 			 output += "<td>" + acceptance + "</td>";
+			 
+			 //buttons
+	            
+			 output += "<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary' data-itemid='" + review_id + "'></td>"
+	            		+ "<td><input name = 'btnRemove' type='button' value = 'Remove' "
+	            		+ "class = 'btnRemove btn btn-danger' data-itemid='" + review_id + "'>"
+	            		+"</td></tr>";
             		
 		}
 		

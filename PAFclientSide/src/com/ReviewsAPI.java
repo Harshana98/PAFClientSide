@@ -75,7 +75,7 @@ public class ReviewsAPI extends HttpServlet {
 		Map paras = getParasMap(request);
 		
 		String output = itemObj.updateReviews(
-				paras.get("id").toString(),
+				paras.get("review_id").toString(),
 				paras.get("project_id").toString(),
 				paras.get("admin_id").toString(),
 				paras.get("review").toString(),
