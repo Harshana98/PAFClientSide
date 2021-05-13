@@ -131,43 +131,43 @@ public String readReviews()
 	}
 
 
-	public String updateReviews(String id, String project_id, String admin_id, String review, String acceptance)
-	{
-			String output = "";
-			try
-			{
-				Connection con = connect(); 
-				 if (con == null) 
-				 {return "Error while connecting to the database for updating."; } 
-				 
-				 
-				 // create a prepared statement
-				 String query = "UPDATE review SET project_id=?, admin_id=?, review=?,acceptance=? WHERE review_id=?"; 
-				 PreparedStatement preparedStmt = con.prepareStatement(query); 
-				 
-				 
-				 // binding values 
-				 preparedStmt.setInt(1, Integer.parseInt(project_id));
-				 preparedStmt.setInt(2, Integer.parseInt(admin_id));
-				 preparedStmt.setString(3, review); 
-				 preparedStmt.setString(4, acceptance); 
-				 preparedStmt.setInt(5, Integer.parseInt(id));
-					// execute the statement
-					preparedStmt.execute();
-					
-					con.close();
-					
-					String newItems = readReviews();
-					output = "{\"status\":\"success\", \"data\": \"" +
-					newItems + "\"}";
-			}
-			catch (Exception e)
-			{
-				output = "{\"status\":\"error\", \"data\": \"Error while updating the item.\"}";
-				System.err.println(e.getMessage());
-			}
-			return output;
-	}
+public String updateReviews(String id, String project_id, String admin_id, String review, String acceptance)
+{
+		String output = "";
+		try
+		{
+			Connection con = connect(); 
+			 if (con == null) 
+			 {return "Error while connecting to the database for updating."; } 
+
+
+			 // create a prepared statement
+			 String query = "UPDATE review SET project_id=?, admin_id=?, review=?,acceptance=? WHERE review_id=?"; 
+			 PreparedStatement preparedStmt = con.prepareStatement(query); 
+
+
+			 // binding values 
+			 preparedStmt.setInt(1, Integer.parseInt(project_id));
+			 preparedStmt.setInt(2, Integer.parseInt(admin_id));
+			 preparedStmt.setString(3, review); 
+			 preparedStmt.setString(4, acceptance); 
+			 preparedStmt.setInt(5, Integer.parseInt(id));
+				// execute the statement
+				preparedStmt.execute();
+
+				con.close();
+
+				String newItems = readReviews();
+				output = "{\"status\":\"success\", \"data\": \"" +
+				newItems + "\"}";
+		}
+		catch (Exception e)
+		{
+			output = "{\"status\":\"error\", \"data\": \"Error while updating the item.\"}";
+			System.err.println(e.getMessage());
+		}
+		return output;
+}
 	
 	
 public String deleteItem(String review_id)
